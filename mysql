@@ -28,7 +28,7 @@ BEGIN
             name,
             username,
 			email,
-		mobile,
+			mobile,
 			ismobilevisible,
             password
         )
@@ -37,7 +37,7 @@ BEGIN
             p_name,
             p_username,
 			p_email,
-		p_mobile,
+			p_mobile,
 			p_flag, 
             p_password
         );
