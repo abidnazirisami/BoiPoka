@@ -1,0 +1,59 @@
+CREATE TABLE user (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   name text,
+	username text NOT NULL,    
+	email text,
+    mobile text,
+    ismobilevisible boolean DEFAULT FALSE, 
+    password text NOT NULL );
+
+INSERT INTO user  VALUES ("123","Muntasir","immuntasir@gmail.com","01521487023",FALSE, "hahaha");
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
+    IN p_name text,
+	IN p_email text,
+	IN p_username text,
+	IN p_mobile text,	
+	IN p_flag text,
+	
+    IN p_password text
+)
+BEGIN
+    if ( select exists (select 1 from user where username = p_username) ) THEN
+         select 'Username Exists !!';  
+    ELSE
+     
+        insert into user
+        (
+            name,
+            username,
+			email,
+		mobile,
+			ismobilevisible,
+            password
+        )
+        values
+        (
+            p_name,
+            p_username,
+			p_email,
+		p_mobile,
+			p_flag, 
+            p_password
+        );
+     
+    END IF;
+END$$
+DELIMITER ;
+
+signin : 
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_validateLogin`(
+IN p_username text,
+IN p_password text
+)
+BEGIN
+    select * from user where email = p_username and password=p_password;
+END$$
+DELIMITER ;
